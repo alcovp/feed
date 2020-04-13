@@ -1,0 +1,11 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="start" type="NodeJSConfigurationType" path-to-node="/usr/local/lib/node_modules/nodemon/bin/nodemon.js" node-parameters="-r esm --inspect=5858" path-to-js-file="src/feed.js" working-dir="$PROJECT_DIR$">
+    <envs>
+      <env name="DEBUG" value="feed:*" />
+    </envs>
+    <EXTENSION ID="com.jetbrains.nodejs.run.NodeJSStartBrowserRunConfigurationExtension">
+      <browser url="http://localhost:3000/" />
+    </EXTENSION>
+    <method v="2" />
+  </configuration>
+</component>

@@ -1,0 +1,27 @@
+extends layout
+
+append head
+    script(src='/feed/js/common.js')
+
+block content
+    div(class='troughs-container')
+        each trough in troughs
+            -const background = trough.imageName ? `background-image: url("/feed/media/image/${trough.imageName}");` : '';
+            div(class='trough', style=background)
+                a(class='trough-link', href=`/feed/posts/${trough.id}`, title=trough.description)
+                    p(class='trough-link-text')= trough.name
+        else
+            li There are no troughs yet
+    div(class='troughs-new')
+        a(class='troughs-new-invoker', href='#', onclick='toggleNewEntityForm(".troughs-new-form"); return false') +trough
+        form(class='troughs-new-form', action='/feed/troughs', method='POST', enctype='multipart/form-data', style='display: none;')
+            label(for='name') Name:
+            input(id='name', type='text', name='name', required)
+            br
+            label(for='description') Description:
+            textarea(id='description', name='description')
+            br
+            label(for='image') Image:
+            input(type='file', id='image', name='image', accept='image/*')
+            br
+            input(type='submit', value='Create')

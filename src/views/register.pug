@@ -1,0 +1,13 @@
+extends layout-unauth
+
+block content
+    form(class='login-form', role='form', action="/feed/register", method="post")
+        input(type='text', name="username", placeholder='Enter Username')
+        br
+        input(type='password', name="password", placeholder='Password')
+        br
+        button(type='submit') Submit
+        a(href='/feed')
+            button(type="button") Cancel
+        br
+        span= err

@@ -1,0 +1,10 @@
+extends layout
+
+block content
+    pre(class='chat')= history
+    form(action='/feed/chat', method='POST')
+        label(for='text') Message:
+        input(type='text', id='text', name='text', required, value='')
+        input(type='submit', value='Send')
+    script.
+        $('#text').focus();

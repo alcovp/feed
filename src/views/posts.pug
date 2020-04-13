@@ -1,0 +1,63 @@
+extends layout
+
+append head
+    script(src='/feed/js/common.js')
+
+block content
+    -const background = trough.imageName ? `background: linear-gradient(to right, rgba(236, 236, 236, 0.9), rgba(236, 236, 236, 0)), url("/feed/media/image/${trough.imageName}") left center no-repeat; background-size: cover;` : '';
+    h1(style=background, class='posts-trough-name')= trough.name
+    - const currentPage = Number(posts.pagination.current)
+    if posts.pagination.pages.length > 1
+        div(class='pagination')
+            if currentPage > 1
+                a(class='pagination-control', href=`/feed/posts/${trough.id}?page=${currentPage - 1}`) <
+            each page in posts.pagination.pages
+                if currentPage === page
+                    a(class='pagination-control pagination-control-active', href='#')= page
+                else
+                    a(class='pagination-control', href=`/feed/posts/${trough.id}?page=${page}`)= page
+            if currentPage < posts.pagination.size
+                a(class='pagination-control', href=`/feed/posts/${trough.id}?page=${currentPage + 1}`) >
+    each post in posts
+        div(class='post')
+            p(class='post-date')= post.date + ' by ' + post.user.username
+            if post.imageName
+                img(class='post-image', src='/feed/media/image/' + post.imageName)
+            pre(class='post-text')= post.text
+            a(class='like-container', href='#', onclick='ratePost("' + post.id + '", "like"); return false')
+                span(class='like-button') &#x1F44D
+                span(id='likes-count-' + post.id)= post.likes.length ? ' ' + post.likes.length : ''
+            a(class='like-container', href='#', onclick='ratePost("' + post.id + '", "dislike"); return false')
+                span(class='like-button') &#x1F44E
+                span(id='dislikes-count-' + post.id)= post.dislikes.length ? ' ' + post.dislikes.length : ''
+            each comment in post.comments
+                div
+                    p(class='post-comment-date')= comment.date + ' by ' + comment.user.username
+                    p(class='post-comment-text')= comment.text
+            form(action=`/feed/posts/comment/${post.id}?troughId=${trough.id}`, method='POST')
+                input(type='text', id='text', name='text', required, value='')
+                input(type='submit', value='Comment')
+
+    else
+        p There are no posts yet
+    if posts.pagination.pages.length > 1
+        div(class='pagination')
+            if currentPage > 1
+                a(class='pagination-control', href=`/feed/posts/${trough.id}?page=${currentPage - 1}`) <
+            each page in posts.pagination.pages
+                if currentPage === page
+                    a(class='pagination-control pagination-control-active', href='#')= page
+                else
+                    a(class='pagination-control', href=`/feed/posts/${trough.id}?page=${page}`)= page
+            if currentPage < posts.pagination.size
+                a(class='pagination-control', href=`/feed/posts/${trough.id}?page=${currentPage + 1}`) >
+    div(class='posts-new')
+        a(class='posts-new-invoker', href='#', onclick='toggleNewEntityForm(".posts-new-form"); return false') +post
+        form(class='posts-new-form', action='/feed/posts/' + trough.id, method='POST', enctype='multipart/form-data', style='display: none;')
+            label(for='text') Text:
+            textarea(id='text', name='text', required)
+            br
+            label(for='image') Image:
+            input(type='file', id='image', name='image', accept='image/*')
+            br
+            input(type='submit', value='Post')

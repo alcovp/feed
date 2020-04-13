@@ -1,0 +1,52 @@
+.troughs-container {
+    display: flex;
+}
+
+.trough {
+    width: 100px;
+    height: 100px;
+    margin: 0 5px 5px 0;
+    text-align: center;
+    border: 1px solid #ececec;
+    border-radius: 2px;
+    background-position: center;
+    background-size: cover;
+}
+
+.trough-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.trough-link-text {
+    background: rgba(255, 255, 255, 0.95);
+}
+
+.trough-link:hover {
+    background: rgba(236, 236, 236, 0.5);
+}
+
+.trough-link:hover .trough-link-text {
+    background: transparent;
+}
+
+.troughs-new {
+    position: sticky;
+    bottom: 0;
+}
+
+.troughs-new-invoker {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 5px;
+    background: rgba(255, 255, 255, 0.95);
+}
+
+.troughs-new-form {
+    padding: 5px 0;
+    background: rgba(255, 255, 255, 0.95);
+}

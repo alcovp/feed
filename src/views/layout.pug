@@ -1,0 +1,21 @@
+doctype html
+html
+    head
+        title Feed
+        meta(name='viewport', content='width=device-width, initial-scale=1.0')
+        link(rel='stylesheet', href='/feed/css/style.css')
+        block head
+            script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js')
+    body
+        div(class='header')
+            span
+                a(class='header-link', href='/feed/users') /users
+                a(class='header-link', href='/feed/troughs') /troughs
+                a(class='header-link', href='/feed/chat') /chat
+            span(class='header-right')
+                if username
+                    span= username
+                span(class='logout-link')
+                    a(href='/feed/logout') logout
+        div(class='column')
+            block content

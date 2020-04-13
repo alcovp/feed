@@ -1,0 +1,10 @@
+extends layout-unauth
+
+block content
+    if (!user)
+        a(href="/feed/login") Login
+        br
+        a(href="/feed/register") Register
+    if (user)
+        p You are currently logged in as #{user.username}
+        a(href="/feed/logout") Logout
